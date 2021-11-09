@@ -1,16 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Context } from '../store/Store'
 import "./Register.css"
 
+
 function Register() {
+    const {state, dispatch} = useContext(Context)
+
     const navigate = useNavigate()
+    
     const [password, setPassword] = useState(String)
     const [repeatPsw, setRepeatPsw] = useState(String)
     const [username, setUsername] = useState(String)
     const [errorMessage, setErrorMessage] = useState(String || null)
 
-    const onRegister = async ()=> {
 
+
+
+    
+
+    const onRegister = async (event: React.SyntheticEvent)=> {
+        event.preventDefault()
         if(password !== repeatPsw){
             setErrorMessage("Passwords do not match")
         }
@@ -27,31 +37,35 @@ function Register() {
             setErrorMessage(data.message)
         }
         if(data.status === "200"){
+            dispatch({type: "ADD_INFO", payload: {
+                username: data.user.username,
+                token: data.user.token,
+                isLoggedIn: true
+            }})
             localStorage.setItem(data.user.username, data.user.token)
-
+            navigate("/login")
         }else {
             setErrorMessage("Something is terribly wrong!")
         }
         
     }
 
-
     return (
-        <form id="registerForm" >
+        <form onSubmit={onRegister} id="registerForm" >
         <div className="container">
             <h1>Register</h1>
             <p>Please fill in this form to create an account.</p>
             <p style={{color: "red", textDecoration: "underline"}}>{errorMessage}</p>
             <label id="username"><b>Username</b></label>
-            <input onChange={(e)=> setUsername(e.target.value)} type="text" placeholder="Enter username" name="email" id="email" required />
+            <input onChange={(e)=> setUsername(e.target.value)} type="text" placeholder="Enter username" name="email" id="email" />
 
             <label id="psw"><b>Password</b></label>
-            <input onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="Enter Password" name="psw" id="psw" required/>
+            <input onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="Enter Password" name="psw" id="psw"/>
 
             <label id="psw-repeat"><b>Repeat Password</b></label>
-            <input onChange={(e)=> setRepeatPsw(e.target.value)} type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required />
+            <input onChange={(e)=> setRepeatPsw(e.target.value)} type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" />
 
-            <button type="button" className="registerbtn" onClick={()=> onRegister()}>Register</button>
+            <button type="submit" className="registerbtn">Register</button>
         </div>
 
         <div className="container signin">
