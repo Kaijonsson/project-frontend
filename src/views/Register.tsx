@@ -1,12 +1,9 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Context } from '../store/Store'
 import "./Register.css"
 
 
 function Register() {
-    const {state, dispatch} = useContext(Context)
-
     const navigate = useNavigate()
     
     const [password, setPassword] = useState(String)
@@ -21,6 +18,10 @@ function Register() {
 
     const onRegister = async (event: React.SyntheticEvent)=> {
         event.preventDefault()
+        if(!password || !repeatPsw || !username){
+            setErrorMessage("Can't submit empty fields")
+            return
+        }
         if(password !== repeatPsw){
             setErrorMessage("Passwords do not match")
         }
@@ -37,12 +38,7 @@ function Register() {
             setErrorMessage(data.message)
         }
         if(data.status === "200"){
-            dispatch({type: "ADD_INFO", payload: {
-                username: data.user.username,
-                token: data.user.token,
-                isLoggedIn: true
-            }})
-            localStorage.setItem(data.user.username, data.user.token)
+            
             navigate("/login")
         }else {
             setErrorMessage("Something is terribly wrong!")

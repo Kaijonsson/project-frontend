@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import { action, initialState } from '../types';
 
 function reducer(state: initialState, action: action) {
@@ -10,6 +9,8 @@ function reducer(state: initialState, action: action) {
             token: action.payload.token,
             isLoggedIn: action.payload.isLoggedIn
         }
+      case 'RESET_STORE':
+        return state
       default:
         throw new Error();
     }

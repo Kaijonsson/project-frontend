@@ -5,18 +5,11 @@ import {initialState, action} from "../types"
 interface childrenProp{
     children: React.ReactNode
 }
-// export const Context = createContext<Array<React.Dispatch<action>|initialState>>([])
-// const AppContext = createContext<{
-    //     state: InitialStateType;
-    //     dispatch: React.Dispatch<any>;
-    //   }>({
-        //     state: initialState,
-        //     dispatch: () => null
-        //   });
+
         const initState = {
             username: "",
-            token: "",
-            isLoggedIn: false
+            token: sessionStorage.getItem("token") || "",
+            isLoggedIn: JSON.parse(sessionStorage.getItem("loggedIn") || "false")
         }
         
         export const Context = createContext<{
