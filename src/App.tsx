@@ -8,8 +8,8 @@ import Login from './views/Login';
 
 function App() {
   return (
-    <div className="App">
-      <Store>
+    <div className="App"> 
+      <Store>  
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home/>} />

@@ -42,6 +42,8 @@ interface orgObject{
     name: string
 }
 
+//Alot of typescript declarations of the fetched from the API.
+
 function Home() {
     const {state} = useContext(Context)
     const [data, setData] = useState<data>() || undefined
@@ -49,7 +51,7 @@ function Home() {
     const navigate = useNavigate();
     useEffect(() => {
         if(!state.token){
-            navigate("/Login")
+            navigate("/Login") //checking if user is logged in? If not, route to login-screen.
         }
         (async()=> {
     
@@ -58,19 +60,20 @@ function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify({token: state.token})
+                  body: JSON.stringify({token: state.token})  //Just a typical API-fetch.
             })
             setData(await response.json())
+
         })()
 
     }, [])
    
     if(data?.data.length === 0){
-        return <div>loading</div>
+        return <div>loading</div> //While waiting for fetch, just render something.
     }else {
         return (
             <div>
-                {state.token && <Logout/>}
+                {state.token && <Logout/>}{/* If user is online, render logout button. */}
                 {data?.data.map((arrayItem: APIObject)=> {
                     return (
                         <div id="apiContainer" key={arrayItem._id}>

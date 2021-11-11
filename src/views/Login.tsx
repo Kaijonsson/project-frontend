@@ -11,9 +11,9 @@ const [username, setUsername] = useState(String)
 const [errorMessage, setErrorMessage] = useState(String || null)
 
 const Login = async (event: React.SyntheticEvent) =>{
-    event.preventDefault()
+    event.preventDefault() //prevent reload when event is activated.
     if(!password || !username){
-        setErrorMessage("Can't submit empty fields")
+        setErrorMessage("Can't submit empty fields") //input-check.
         return
     }
     const response = await fetch("https://api.axeljonsson.tech/Login", {
@@ -27,16 +27,14 @@ const Login = async (event: React.SyntheticEvent) =>{
     const data = await response.json()
 
     if(data.status === "400"){
-        setErrorMessage(data.message)
+        setErrorMessage(data.message) //error handling.
     }else {
-        console.log(data)
-        sessionStorage.setItem("token", data.user.token)
-        sessionStorage.setItem("status", JSON.stringify({isLoggedIn: true}))
-        dispatch({type: "ADD_INFO", payload: {
+        sessionStorage.setItem("token", data.user.token) //set token in sessionstorage
+        dispatch({type: "ADD_INFO", payload: { //set userinfo in global-state.
             username: data.user.username,
             token: data.user.token,
         }})
-        navigate("/")
+        navigate("/") //navigate to home-component.
     }
 
 }

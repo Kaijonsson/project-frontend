@@ -9,7 +9,7 @@ function Register() {
     const [password, setPassword] = useState(String)
     const [repeatPsw, setRepeatPsw] = useState(String)
     const [username, setUsername] = useState(String)
-    const [errorMessage, setErrorMessage] = useState(String || null)
+    const [errorMessage, setErrorMessage] = useState(String || null) //error is string or nothing.
 
 
 
@@ -19,29 +19,28 @@ function Register() {
     const onRegister = async (event: React.SyntheticEvent)=> {
         event.preventDefault()
         if(!password || !repeatPsw || !username){
-            setErrorMessage("Can't submit empty fields")
+            setErrorMessage("Can't submit empty fields") //input check
             return
         }
         if(password !== repeatPsw){
-            setErrorMessage("Passwords do not match")
+            setErrorMessage("Passwords do not match") //input check
         }
         const response =  await fetch("https://api.axeljonsson.tech/register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
               },
             body: JSON.stringify({username: username, password: password})
         })
         const data = await response.json()
         if(data.status === "400"){
-            setErrorMessage(data.message)
+            setErrorMessage(data.message) //error message
         }
         if(data.status === "200"){
             
             navigate("/login")
         }else {
-            setErrorMessage("Something is terribly wrong!")
+            setErrorMessage("Something is terribly wrong!") //just to prevent crashing.
         }
         
     }

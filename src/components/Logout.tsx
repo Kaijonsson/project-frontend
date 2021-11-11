@@ -1,14 +1,16 @@
-import React, {useContext} from 'react'
-import { Context } from '../store/Store'
 import { useNavigate } from 'react-router-dom'
 
 import "./Logout.css"
+
+/*
+A Component that handles logging out.
+*/
 function Logout() {
-    const navigate = useNavigate()
+    const navigate = useNavigate() 
 
     const Logout = () => {
-        sessionStorage.clear()
-        navigate("/Login")
+        sessionStorage.clear() //remove userinfo from sessionstorage
+        navigate("/Login") //Navigate out of userarea
     }
     return (
         <div>
