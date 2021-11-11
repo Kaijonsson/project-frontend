@@ -25,7 +25,7 @@ function Register() {
         if(password !== repeatPsw){
             setErrorMessage("Passwords do not match")
         }
-        const response =  await fetch("http://localhost:3015/register", {
+        const response =  await fetch("https://api.axeljonsson.tech/register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

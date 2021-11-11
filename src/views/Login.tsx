@@ -16,7 +16,7 @@ const Login = async (event: React.SyntheticEvent) =>{
         setErrorMessage("Can't submit empty fields")
         return
     }
-    const response = await fetch("http://localhost:3015/Login", {
+    const response = await fetch("https://api.axeljonsson.tech/Login", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
