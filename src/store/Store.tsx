@@ -9,7 +9,6 @@ interface childrenProp{
         const initState = {
             username: "",
             token: sessionStorage.getItem("token") || "",
-            isLoggedIn: JSON.parse(sessionStorage.getItem("loggedIn") || "false")
         }
         
         export const Context = createContext<{
@@ -21,10 +20,10 @@ interface childrenProp{
         })
 
 
-// const Context = createContext<initialState>(initState)
 
 function Store({children}: childrenProp) {
     const [state, dispatch] = useReducer(reducer, initState)
+    console.log("storeToken: ", state.token)
     return (
         <Context.Provider value={{state, dispatch}}>
             {children}

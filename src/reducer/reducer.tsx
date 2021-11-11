@@ -7,7 +7,6 @@ function reducer(state: initialState, action: action) {
             ...state,
             username: action.payload.username,
             token: action.payload.token,
-            isLoggedIn: action.payload.isLoggedIn
         }
       case 'RESET_STORE':
         return state

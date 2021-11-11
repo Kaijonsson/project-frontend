@@ -35,7 +35,6 @@ const Login = async (event: React.SyntheticEvent) =>{
         dispatch({type: "ADD_INFO", payload: {
             username: data.user.username,
             token: data.user.token,
-            isLoggedIn: true
         }})
         navigate("/")
     }

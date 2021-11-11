@@ -3,12 +3,10 @@ export type action = {
     payload: {
         username: string,
         token: string,
-        isLoggedIn: Boolean
     }
 }
 
 export type initialState = {
     username: string,
     token: string,
-    isLoggedIn: Boolean
 }
