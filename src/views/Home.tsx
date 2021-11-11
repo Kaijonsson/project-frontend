@@ -13,6 +13,16 @@ function Home() {
         if(state.isLoggedIn !== true){
             navigate("/Login")
         }
+        fetch("http://localhost:3015/authorized/api/all_users", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded'
+                // "x-access-token": state.token
+              },
+              body: JSON.stringify({token: state.token})
+        }).then((response)=> response.json().then((data)=>console.log(data)))
+
     }, [state.isLoggedIn])
 
     return (
